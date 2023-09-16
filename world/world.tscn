@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://world/ground.png" type="Texture" id=1]
+[ext_resource path="res://world/world.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 512, 26 )
 
 [node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PhaseTimer" type="Timer" parent="."]
+autostart = true
 
 [node name="Ground" type="StaticBody2D" parent="."]
 
