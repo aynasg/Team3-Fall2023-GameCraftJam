@@ -17,9 +17,6 @@ func _ready():
 	PhaseTimer.connect("timeout", self, "next_phase")
 	PhaseTimer.start()
 
-func _process(delta):
-	$Label.text = str(PhaseTimer.time_left)
-
 func next_phase():
 	# Change Phase
 	Game.current_phase += 1
