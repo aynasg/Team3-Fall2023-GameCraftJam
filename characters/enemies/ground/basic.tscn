@@ -2,29 +2,30 @@
 
 [ext_resource path="res://characters/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/enemies/ground/basic.png" type="Texture" id=2]
-[ext_resource path="res://characters/enemies/ground/basic.gd" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 712.389
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 23.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 25.0
+height = 4.0
 
 [node name="Enemy" instance=ExtResource( 1 )]
 scale = Vector2( 0.449193, 0.449193 )
-script = ExtResource( 3 )
-movement_speed = 100
-acceleration = 5
-state = 0
+collision_layer = 12
+collision_mask = 0
 
-[node name="AttackRange" type="Area2D" parent="." index="0"]
-scale = Vector2( 1, 1 )
-
-[node name="Collision" type="CollisionShape2D" parent="AttackRange" index="0"]
-modulate = Color( 0.87451, 1, 0, 1 )
+[node name="Collision" parent="." index="0"]
+position = Vector2( -7, -15 )
 shape = SubResource( 1 )
 
-[node name="Collision" parent="." index="1"]
-position = Vector2( 0, 5.5 )
-
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 position = Vector2( 5.68434e-14, 0 )
-scale = Vector2( -0.244, 0.244 )
+scale = Vector2( 0.243863, 0.243863 )
 texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2( -12, 43 )
+rotation = 1.5708
+shape = SubResource( 2 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://world/world.gd" type="Script" id=2]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=3]
@@ -13,9 +13,6 @@ extents = Vector2( 512, 10 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 300 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 96, 10 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -53,15 +50,4 @@ shape = SubResource( 2 )
 position = Vector2( 488, 505 )
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 272, 520 )
-
-[node name="Platform" type="StaticBody2D" parent="."]
-position = Vector2( 712, 280 )
-
-[node name="Collision" type="CollisionShape2D" parent="Platform"]
-shape = SubResource( 4 )
-
-[node name="Sprite" type="Sprite" parent="Platform"]
-position = Vector2( -6.67572e-06, -32 )
-scale = Vector2( 0.146008, 0.116667 )
-texture = ExtResource( 1 )
+position = Vector2( 536, 512 )
