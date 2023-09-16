@@ -1,3 +1,4 @@
+class_name Player
 extends KinematicBody2D
 
 
@@ -12,6 +13,7 @@ const TURN_AROUND_FACTOR = 2;
 
 const JUMP_SPEED = -500; # unit/sec
 const GRAVITY = 2000; # unit/sec^2
+
 const JUMP_HOLD_GRAVITY_FACTOR = 0.33;
 const FAST_FALL_GRAVITY_FACTOR = 3;
 
@@ -49,6 +51,9 @@ func _ready():
 
 
 func _process(delta):
+	# Tracks the player's position
+	Game.player_position = position
+
 	check_for_attack(delta);
 	check_for_zip(delta);
 	update_velocity(delta);
