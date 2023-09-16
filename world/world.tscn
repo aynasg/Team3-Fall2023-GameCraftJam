@@ -10,7 +10,6 @@ extents = Vector2( 512, 26 )
 script = ExtResource( 2 )
 
 [node name="PhaseTimer" type="Timer" parent="."]
-autostart = true
 
 [node name="Ground" type="StaticBody2D" parent="."]
 
@@ -22,3 +21,9 @@ texture = ExtResource( 1 )
 [node name="Collision" type="CollisionShape2D" parent="Ground"]
 position = Vector2( 512, 574 )
 shape = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 488.0
+margin_top = 424.0
+margin_right = 528.0
+margin_bottom = 438.0
