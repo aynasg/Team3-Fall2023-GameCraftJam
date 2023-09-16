@@ -5,6 +5,7 @@ extends KinematicBody2D
 const MAX_X_SPEED = 400; #unit/sec
 const MAX_Y_SPEED = 400; #unit/sec
 const ACCELERATION = MAX_X_SPEED/0.1; #unit/sec^2
+const GRAVITY = 1000; #unit/sec^2
 
 # -----| On Ready |-----
 onready var jumping : bool = false;
@@ -37,7 +38,7 @@ func _physics_process(delta):
 		dv -= Vector2(0, MAX_Y_SPEED);
 		canJump = false;
 	else:
-		dv += Vector2(0, delta*WorldConst.GRAVITY);
+		dv += Vector2(0, delta*GRAVITY);
 		canJump = true;
 	
 	velocity += dv;
