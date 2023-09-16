@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://characters/enemies/enemy.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://characters/player/player.gd"
 } ]
 _global_script_class_icons={
-"Enemy": ""
+"Enemy": "",
+"Player": ""
 }
 
 [application]
@@ -26,7 +32,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GlobalWorld="*res://scripts/world.gd"
 Game="*res://globals/game.tscn"
 
 [display]

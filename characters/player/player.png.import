@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/basic.png-c0250e1979f4e1d6e7253c80b8821425.stex"
+path="res://.import/player.png-a8fc4065ed304166a5922989fd4ac3ed.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/enemies/ground/basic.png"
-dest_files=[ "res://.import/basic.png-c0250e1979f4e1d6e7253c80b8821425.stex" ]
+source_file="res://characters/player/player.png"
+dest_files=[ "res://.import/player.png-a8fc4065ed304166a5922989fd4ac3ed.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
