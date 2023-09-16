@@ -134,11 +134,13 @@ func update_velocity(delta):
 	# Enter fast fall on input
 	if Input.is_action_just_pressed("player_fast_fall"):
 		fast_falling = true;
+		zip_stun = 0;
 	
 	# Gravity and jump processing
 	# On grounded jump
-	if Input.is_action_just_pressed("player_jump") and is_on_floor(): 
+	if Input.is_action_pressed("player_jump") and is_on_floor(): 
 		velocity.y = JUMP_SPEED;
+		zip_stun = 0;
 	# Reset movement abilites on land
 	elif is_on_floor(): 
 		double_jump_available = true;
@@ -151,6 +153,7 @@ func update_velocity(delta):
 		velocity.y = JUMP_SPEED;
 		double_jump_available = false;
 		fast_falling = false;
+		zip_stun = 0;
 	elif fast_falling:
 		delta_velocity += Vector2(0, FAST_FALL_GRAVITY_FACTOR*delta*GRAVITY);
 	# Reduces the gravity if jump is being held during the first half of the jump

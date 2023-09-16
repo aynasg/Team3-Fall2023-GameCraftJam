@@ -17,14 +17,13 @@ radius = 25.0
 [sub_resource type="CanvasItemMaterial" id=3]
 
 [node name="Player" type="KinematicBody2D"]
-scale = Vector2( 1.60461, 1.60461 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
 [node name="Zip" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zip"]
@@ -36,7 +35,7 @@ points = PoolVector2Array( 200, 0, 0, 0 )
 default_color = Color( 0.4, 0.501961, 1, 1 )
 
 [node name="Attack" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 monitoring = false
 monitorable = false
