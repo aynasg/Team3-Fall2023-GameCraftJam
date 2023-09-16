@@ -3,13 +3,17 @@ extends KinematicBody2D
 # -----| Player Constant Declarations |------
 
 const MAX_X_SPEED = 400; #unit/sec
-const MAX_Y_SPEED = 400; #unit/sec
+const MAX_Y_SPEED = 1000; #unit/sec
+const JUMP_SPEED = -500; #unit/sec
 const ACCELERATION = MAX_X_SPEED/0.1; #unit/sec^2
-const GRAVITY = 1000; #unit/sec^2
+const GRAVITY = 2000; #unit/sec^2
+const JUMP_HOLD_GRAVITY_FACTOR = 0.33;
+const FAST_FALL_GRAVITY_FACTOR = 3;
 
 # -----| On Ready |-----
-onready var jumping : bool = false;
-onready var canJump : bool = true;
+onready var onGround : bool = false;
+onready var doubleJumpAvailable : bool = true;
+onready var fastFalling : bool = false;
 onready var velocity : Vector2 = Vector2.ZERO;
 
 func _ready():
@@ -34,12 +38,22 @@ func _physics_process(delta):
 		if sign(dv.x) != sign(velocity.x):
 			dv *= 2;
 	
-	if Input.is_action_pressed("player_jump") and canJump:
-		dv -= Vector2(0, MAX_Y_SPEED);
-		canJump = false;
+	if Input.is_action_just_pressed("player_fast_fall"):
+		fastFalling = true;
+	
+	if Input.is_action_just_pressed("player_jump") and onGround:
+		velocity.y = JUMP_SPEED;
+		fastFalling = false;
+	elif Input.is_action_just_pressed("player_jump") and doubleJumpAvailable:
+		velocity.y = JUMP_SPEED;
+		doubleJumpAvailable = false;
+		fastFalling = false;
+	elif fastFalling:
+		dv += Vector2(0, FAST_FALL_GRAVITY_FACTOR*delta*GRAVITY);
+	elif Input.is_action_pressed("player_jump") or velocity.y > 0:
+		dv += Vector2(0, JUMP_HOLD_GRAVITY_FACTOR*delta*GRAVITY);
 	else:
 		dv += Vector2(0, delta*GRAVITY);
-		canJump = true;
 	
 	velocity += dv;
 	if abs(velocity.x) > MAX_X_SPEED:
@@ -47,7 +61,13 @@ func _physics_process(delta):
 	if abs(velocity.y) > MAX_Y_SPEED:
 		velocity.y = MAX_Y_SPEED*sign(velocity.y);
 	
-	print(input, velocity);
+	print(input, " ", Input.is_action_pressed("player_jump"), " ", fastFalling, " ", velocity);
 	
-	move_and_slide(velocity, Vector2.UP);
+	var real_velocity = move_and_slide(velocity, Vector2.DOWN);
+	
+	onGround = real_velocity.y < velocity.y;
+	if onGround:
+		doubleJumpAvailable = true;
+		fastFalling = false;
+	
 	pass
