@@ -11,7 +11,13 @@ config_version=4
 [application]
 
 config/name="Late Start"
+run/main_scene="res://Root.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GlobalWorld="*res://scripts/world.gd"
+Game="*res://scripts/game.gd"
 
 [gui]
 

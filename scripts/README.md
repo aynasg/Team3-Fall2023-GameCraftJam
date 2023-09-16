@@ -1,0 +1,1 @@
+This folder hosts all of the global scripts for the game.  These will AutoLoad when the game starts so that everything has access to them.
