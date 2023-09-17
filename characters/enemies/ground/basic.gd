@@ -4,11 +4,11 @@ onready var SpriteNode := $Sprite
 onready var LineOfSight := $Raycast
 onready var IdleTimer := $IdleTimer
 onready var MoveTimer := $MoveTimer
-#onready var AttackRange := $AttackRange
 
 # Movement
 export var movement_speed := 100
 export var acceleration := 5 
+
 
 export var state := states.IDLE
 
@@ -22,6 +22,7 @@ var just_entered_idle := false
 var just_entered_move := false
 var should_move := false
 var can_see_player := false
+
 
 func _ready():
 	MoveTimer.connect("timeout", self, "_move_timer_up")
