@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://characters/enemies/enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://characters/hit.tres" type="Shader" id=2]
+[ext_resource path="res://characters/enemies/ground/basic.png" type="Texture" id=2]
 [ext_resource path="res://characters/enemies/ground/basic.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -10,10 +10,6 @@ radius = 712.389
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 22.2621
 height = 66.7864
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = ExtResource( 2 )
-shader_param/hit_opacity = 0.0
 
 [node name="Enemy" instance=ExtResource( 1 )]
 scale = Vector2( 0.449193, 0.449193 )
@@ -39,6 +35,5 @@ position = Vector2( 11.1311, 6.67864 )
 shape = SubResource( 2 )
 
 [node name="Sprite" parent="." index="2"]
-material = SubResource( 5 )
-position = Vector2( 5.68434e-14, 0 )
 scale = Vector2( -0.244, 0.244 )
+texture = ExtResource( 2 )

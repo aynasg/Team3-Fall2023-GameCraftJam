@@ -1,15 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://characters/enemies/enemy.gd" type="Script" id=1]
-[ext_resource path="res://characters/hit.tres" type="Shader" id=2]
-[ext_resource path="res://characters/enemies/ground/basic.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 58.5 )
-
-[sub_resource type="ShaderMaterial" id=4]
-shader = ExtResource( 2 )
-shader_param/hit_opacity = 0.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -25,12 +19,24 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "hit"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:material:shader_param/hit_opacity")
+tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -39,7 +45,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 1.0, 0.0 ]
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -51,8 +57,6 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 4 )
-texture = ExtResource( 3 )
 
 [node name="Raycast" type="RayCast2D" parent="."]
 enabled = true
