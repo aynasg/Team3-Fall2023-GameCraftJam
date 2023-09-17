@@ -43,16 +43,16 @@ func spawn_enemy_at(script, pos : Vector2):
 
 
 func _on_enemies_hit(list):
-	print(list, " deleted");
 	for enemy in list:
 		if is_instance_valid(enemy):
 			if enemy.has_method('hit'):
-				enemy.hit();
+				enemy.hit(1);
+				print("%s hurt, now has %s out of %s health remaining" % [enemy, enemy.health, enemy.max_health])
 			else:
 				enemy.queue_free();
 
 
 func _on_Inbounds_body_exited(body):
-	print(body, " deleted");
+	print(body, " killed");
 	if is_instance_valid(body):
 		body.queue_free();

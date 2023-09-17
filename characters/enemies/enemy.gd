@@ -9,8 +9,16 @@ enum states {
 	ATTACK
 }
 
+onready var EffectsPlayer := $Effects
+
+export var max_health := 5
+var health := max_health
+
 var direction := 1
 var velocity := Vector2.ZERO
 
-func hit():
-	queue_free();
+func hit(amount):
+	EffectsPlayer.play("hit")
+	health -= amount
+	if health <= 0:
+		queue_free()
