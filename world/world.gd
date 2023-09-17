@@ -5,6 +5,7 @@ signal phase
 # PhaseTimer waits for a certain amount of time and then changes|
 # the current phase we are on.
 onready var PhaseTimer := $PhaseTimer
+onready var PauseMenu := $PauseMenuPopup
 
 func _ready():
 	# Everytime we reload the world, we need to reset the current
@@ -16,6 +17,12 @@ func _ready():
 	PhaseTimer.wait_time = Game.TIME_UNTIL_BOSS_ARRIVAL / Game.MAX_PHASES
 	PhaseTimer.connect("timeout", self, "next_phase")
 	PhaseTimer.start()
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		PauseMenu.visible = true
+		get_tree().paused = true
+
 
 func next_phase():
 	# Change Phase
