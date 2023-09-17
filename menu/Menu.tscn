@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://menu/ButtonContainer.gd" type="Script" id=1]
 [ext_resource path="res://world/background.png" type="Texture" id=2]
-[ext_resource path="res://menu/Title.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
@@ -76,7 +75,6 @@ margin_left = -448.0
 margin_top = 88.0
 margin_right = 448.0
 margin_bottom = 272.0
-texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 
@@ -93,10 +91,10 @@ margin_bottom = 132.0
 [node name="Label" type="Label" parent="CreditsPopup"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -152.0
-margin_top = 40.0
-margin_right = 162.0
-margin_bottom = 71.0
+margin_left = -476.0
+margin_top = 4.0
+margin_right = 476.0
+margin_bottom = 356.0
 text = "This game was made by:
 ALL THE PEOPLE WHO MADE THE GAME GO HERE"
 
