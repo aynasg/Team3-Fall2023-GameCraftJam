@@ -5,6 +5,9 @@
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://world/background.png" type="Texture" id=5]
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 512, 300 )
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 512, 26 )
 
@@ -17,9 +20,6 @@ extents = Vector2( 10, 300 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 96, 10 )
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 512, 300 )
-
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -29,6 +29,16 @@ script = ExtResource( 2 )
 position = Vector2( 512, 300 )
 scale = Vector2( 0.991674, 0.986842 )
 texture = ExtResource( 5 )
+
+[node name="Inbounds" type="Area2D" parent="."]
+position = Vector2( 512, 300 )
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inbounds"]
+modulate = Color( 0.419608, 1, 0.439216, 1 )
+shape = SubResource( 5 )
 
 [node name="Ground" type="StaticBody2D" parent="."]
 
@@ -66,15 +76,5 @@ position = Vector2( -6.67572e-06, -32 )
 scale = Vector2( 0.146008, 0.116667 )
 texture = ExtResource( 1 )
 
-[node name="Inbounds" type="Area2D" parent="."]
-position = Vector2( 512, 300 )
-collision_layer = 0
-collision_mask = 12
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Inbounds"]
-modulate = Color( 0.419608, 1, 0.439216, 1 )
-shape = SubResource( 5 )
-
-[connection signal="enemies_hit" from="Player" to="." method="_on_enemies_hit"]
 [connection signal="body_exited" from="Inbounds" to="." method="_on_Inbounds_body_exited"]
+[connection signal="enemies_hit" from="Player" to="." method="_on_enemies_hit"]
