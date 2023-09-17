@@ -2,6 +2,12 @@ class_name Player
 extends KinematicBody2D
 
 
+# -----| Signals |-----
+
+
+signal enemies_hit(list);
+
+
 # -----| Player Constant Declarations |------
 
 
@@ -85,10 +91,9 @@ func check_for_attack(delta):
 	# starting from initial input
 	if ATTACK_TIMEOUT_TIME - attack_timeout < ATTACK_ACTIVE_TIME:
 		$Attack/Sprite.show();
-		$Attack.monitorable = true;
+		emit_signal("enemies_hit", $Attack.get_overlapping_bodies());
 	else:
 		$Attack/Sprite.hide();
-		$Attack.monitorable = false;
 	pass;
 
 
@@ -103,6 +108,7 @@ func check_for_zip(delta):
 			zip_movement = ZIP_DIST*Vector2(cos($Zip.rotation), sin($Zip.rotation));
 			zip_timeout = 0;
 			zips_since_land += 1;
+			emit_signal("enemies_hit", $Zip.get_overlapping_bodies());
 	# If the attack timeout > 0, reduce by time passed since last update
 	elif zip_timeout > 0 or zip_stun > 0:
 		$Zip/Line2D.hide();
@@ -178,12 +184,13 @@ func update_velocity(delta):
 		velocity.y = MAX_Y_SPEED*sign(velocity.y);
 	pass;
 
-
 # -----| On input_direction |-----
 
 
 func _unhandled_input(event):
 	if event is InputEventMouse:
 		#print(event, " ", event.global_position, " ", get_angle_to(event.global_position));
-		$Attack.look_at(event.global_position);
-		$Zip.look_at(event.global_position);
+		if attack_timeout < 0:
+			$Attack.look_at(event.global_position);
+		if zip_timeout < 0:
+			$Zip.look_at(event.global_position);

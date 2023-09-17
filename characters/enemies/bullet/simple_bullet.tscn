@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://characters/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/enemies/bullet/placeholder_bullet.png" type="Texture" id=2]
+[ext_resource path="res://characters/enemies/bullet/simple_bullet.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.0
+
+[node name="Enemy" instance=ExtResource( 1 )]
+collision_layer = 12
+collision_mask = 2
+script = ExtResource( 3 )
+state = 2
+
+[node name="Collision" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )
