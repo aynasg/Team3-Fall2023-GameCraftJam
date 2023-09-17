@@ -3,9 +3,10 @@ extends KinematicBody2D
 
 enum states {
 	IDLE,
-	FOLLOW,
+	MOVE,
 	ATTACK
 }
 
 var direction := 1
 var velocity := Vector2.ZERO
+

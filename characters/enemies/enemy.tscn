@@ -17,3 +17,9 @@ shape = SubResource( 1 )
 
 [node name="Raycast" type="RayCast2D" parent="."]
 enabled = true
+
+[node name="IdleTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MoveTimer" type="Timer" parent="."]
+one_shot = true

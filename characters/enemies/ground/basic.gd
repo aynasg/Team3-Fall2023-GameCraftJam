@@ -2,7 +2,9 @@ extends Enemy
 
 onready var SpriteNode := $Sprite
 onready var LineOfSight := $Raycast
-onready var AttackRange := $AttackRange
+onready var IdleTimer := $IdleTimer
+onready var MoveTimer := $MoveTimer
+#onready var AttackRange := $AttackRange
 
 # Movement
 export var movement_speed := 100
@@ -10,27 +12,32 @@ export var acceleration := 5
 
 export var state := states.IDLE
 
+export var min_move_time := 0.5
+export var max_move_time := 5
+export var min_idle_time := 5
+export var max_idle_time := 15
+export var move_towards_player_bias = 4
+
+var just_entered_idle := false
+var just_entered_move := false
+var should_move := false
 var can_see_player := false
+
+func _ready():
+	MoveTimer.connect("timeout", self, "_move_timer_up")
+	IdleTimer.connect("timeout", self, "_idle_timer_up")
 
 func _process(delta):
 	# Simple state machine
 	match state:
 		states.IDLE:
 			idle_state()
-		states.FOLLOW:
-			follow_state()
+		states.MOVE:
+			move_state()
 		states.ATTACK:
 			attack_state()
 	
-	# State logic
-	if can_see_player:
-		if player_in_attack_range():
-			state = states.ATTACK
-		else:
-			state = states.FOLLOW
-	else:
-		state = states.IDLE
-		
+	state_logic()
 	
 	# Handles velocity
 	velocity.x *= 0.91
@@ -55,26 +62,64 @@ func _physics_process(delta):
 	else:
 		can_see_player = false
 
-func idle_state():
-	pass
+func state_logic():
+	if can_see_player:
+		should_move = false
+		just_entered_idle = true
+		just_entered_move = false
+		
+		state = states.ATTACK
+	elif should_move:
+		state = states.MOVE
+	else:
+		just_entered_move = true
+		
+		state = states.IDLE
 
-func follow_state():
-	face_player()
+func idle_state():
+	if just_entered_idle:
+		reset_idle_timer()
+		IdleTimer.start()
+	
+	just_entered_idle = false
+
+func move_state():
+	if just_entered_move:
+		reset_move_timer()
+		MoveTimer.start()
+		
+		if int(rand_range(1, move_towards_player_bias)) == 1:
+			direction *= -1
+		else:
+			face_player()
+		
+	
 	velocity.x += acceleration * direction
+	just_entered_move = false
 
 func attack_state():
 	face_player()
 
-func player_in_attack_range() -> bool:
-	var bodies = AttackRange.get_overlapping_bodies()
-	for body in bodies:
-		if body.name == "Player":
-			return true
-	return false
+# Resets the idle timer to a random float between the min and max idle times
+func reset_idle_timer():
+	var wait_time = clamp(randf() * max_idle_time, min_idle_time, max_idle_time)
+	IdleTimer.wait_time = wait_time
+
+func reset_move_timer():
+	var wait_time = clamp(randf() * max_move_time, min_move_time, max_move_time)
+	MoveTimer.wait_time = wait_time
+
+func _idle_timer_up():
+	print("You have been idle for too long")
+	should_move = true
+
+func _move_timer_up():
+	should_move = false
+	just_entered_idle = true
+	just_entered_move = false
 
 func face_player():
 	var direction_to_player = position.direction_to(Game.player_position).normalized()
-	
 	if direction_to_player.x > 0:
 		direction = 1
 	else:
